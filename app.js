@@ -1,31 +1,25 @@
 console.log("Working")
 
-// let url = "https://deckofcardsapi.com/api/deck"
-
-// let deck = axios.get(`${url}/new/shuffle/?deck_count=1`)
-// deck.then(res => {
-//     // console.log(res.data.deck_id)
-//     return axios.get(`${url}/${res.data.deck_id}/draw/?count=1`)
-// })
-//     .then(res2 => {
-//         console.log(res2.data.cards[0].suit, res2.data.cards[0].value);
-//         return axios.get(`${url}/${res2.data.deck_id}/draw/?count=1`);
-
-//     })
-//     .then(res3 => {
-//         console.log(res3.data.cards[0].suit, res3.data.cards[0].value);
-//     })
-    
+let count = 0
+let btn = document.getElementById("card-btn")
+let btnFront = document.getElementById("card-front")
 
 
 let url = "https://deckofcardsapi.com/api/deck"
-let count = 0;
 
 let deck = axios.get(`${url}/new/shuffle/?deck_count=1`)
-
-let cards = deck.then(res => {
-    // console.log(res.data.deck_id)
+deck.then(res => {
     return axios.get(`${url}/${res.data.deck_id}/draw/?count=52`)
-    console.log(res.data.cards)
 })
+    .then(allCards => {
+        btn.addEventListener("click", function(){ 
+            if (count < 51) {
+                console.log(allCards.data.cards[count].suit, allCards.data.cards[count].value);
+                btnFront.innerText = `${allCards.data.cards[count].value} of ${allCards.data.cards[count].suit}`
+                count++;
+            }        
+        });
+    })
+
+    
 
