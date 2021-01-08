@@ -71,6 +71,7 @@ async function getUser(user) {
     }
 }
 
+// refactor from callback hell (also compare to .then chaining version)
 let threePokemon = [];
 async function getThreePoke() {
         base = "https://pokeapi.co/api/v2/pokemon"
@@ -81,4 +82,22 @@ async function getThreePoke() {
         let res3 = await axios.get(`${base}/3`)
         threePokemon.push(res3.data.name)
         await console.log(threePokemon)
+}
+
+// sequential parallel requests
+
+let threeMorePokemon = [];
+async function ThreeMorePoke() {
+        base = "https://pokeapi.co/api/v2/pokemon"
+        let pokemons = await Promise.all ([
+        axios.get(`${base}/6`),
+        axios.get(`${base}/7`),
+        axios.get(`${base}/83`),
+        ]);
+
+        for (let poke of pokemons) {
+            threeMorePokemon.push(poke.data.name)
+        }
+
+        console.log(threeMorePokemon)
 }
