@@ -42,3 +42,32 @@ const deck = {
     }
 }
 
+
+// Class with async
+
+class Pokemon {
+    constructor (id) {
+        this.id = id
+        this.name = ""
+        this.effect = ""
+    }
+    async getInfo() {
+        let res = await axios.get(`https://pokeapi.co/api/v2/ability/${this.id}`)
+        this.name = res.data.name
+        this.effect = res.data.effect_entries[0].effect
+    }
+}
+
+
+// Error handling - try & catch
+let user_url = "";
+async function getUser(user) {
+    try {
+        let res = await axios.get(`https://api.github.com/users/${user}`)
+        user_url = res.data.url
+        console.log(res)
+    } catch (e) {
+        console.log("please enter a valid name", e)
+    }
+
+}
