@@ -69,5 +69,16 @@ async function getUser(user) {
     } catch (e) {
         console.log("please enter a valid name", e)
     }
+}
 
+let threePokemon = [];
+async function getThreePoke() {
+        base = "https://pokeapi.co/api/v2/pokemon"
+        let res = await axios.get(`${base}/1`)
+        threePokemon.push(res.data.name)
+        let res2 = await axios.get(`${base}/2`)
+        threePokemon.push(res2.data.name)
+        let res3 = await axios.get(`${base}/3`)
+        threePokemon.push(res3.data.name)
+        await console.log(threePokemon)
 }
